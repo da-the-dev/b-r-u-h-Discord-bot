@@ -1,0 +1,15 @@
+{
+	"name": "b-r-u-h-discord-bot",
+	"version": "0.0.1",
+	"description": "This's a B R U H bot. That's it.",
+	"main": "index.js",
+	"scripts": {
+		"test": ".test"
+	},
+	"author": "da_dev",
+	"license": "ISC",
+	"dependencies": {
+		"discord.js": "^11.5.1",
+		"dotenv": "^8.2.0"
+	}
+}
