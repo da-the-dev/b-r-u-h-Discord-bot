@@ -1,8 +1,10 @@
-global.test = new Number
 module.exports = {
     "name": "mkgrp",
     "description": "С помощью этой команды можно создать приватную/публичную группу с текстовым и голосвым каналами.",
-    exec(msg, args, client) {
+    async exec(msg, args, client) {
+        const sqlite3 = require('sqlite3').verbose()
+        var db = new sqlite3.Database('data.db')
+
         // Text permissions base
         let permissionOverwritesText = [
             {
@@ -25,7 +27,7 @@ module.exports = {
         });
 
         // Create this text channel
-        msg.guild.createChannel(name, {
+        var textid = await msg.guild.createChannel(name, {
             userLimit: 5,
             type: "text",
             // parent: 681160371595509762,
@@ -33,12 +35,12 @@ module.exports = {
         })
             .then((channel) => {
                 channel.send("все, охапка дров, канал готов.")
-                global.test = channel.id
+                return channel.id
             })
             .catch((e) => {
                 console.log(e)
             })
-        console.log(global.test)
+
         // Voice permissions base
         let permissionOverwritesVoice = [
             {
@@ -60,11 +62,16 @@ module.exports = {
         });
 
         // Create this voice channel
-        msg.guild.createChannel(name, {
+        var voiceid = await msg.guild.createChannel(name, {
             userLimit: 5,
             type: "voice",
             // parent: 681160371595509762,
             permissionOverwrites: permissionOverwritesVoice
+        }).then(channel => {
+            return channel.id
         })
+
+        db.run(`insert into gropowners (ownersid, textid, voiceid)
+                values (${msg.author.id}, ${textid}, ${voiceid})`)
     }
 }
