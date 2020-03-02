@@ -1,3 +1,4 @@
+global.test = new Number
 module.exports = {
     "name": "mkgrp",
     "description": "С помощью этой команды можно создать приватную/публичную группу с текстовым и голосвым каналами.",
@@ -32,11 +33,12 @@ module.exports = {
         })
             .then((channel) => {
                 channel.send("все, охапка дров, канал готов.")
+                global.test = channel.id
             })
             .catch((e) => {
                 console.log(e)
             })
-
+        console.log(global.test)
         // Voice permissions base
         let permissionOverwritesVoice = [
             {
