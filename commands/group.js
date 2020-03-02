@@ -28,7 +28,7 @@ module.exports = {
         msg.guild.createChannel(name, {
             userLimit: 5,
             type: "text",
-            parent: 681160371595509762,
+            // parent: 681160371595509762,
             permissionOverwrites: permissionOverwritesText
         })
             .then((channel) => {
@@ -63,7 +63,7 @@ module.exports = {
         msg.guild.createChannel(name, {
             userLimit: 5,
             type: "voice",
-            parent: 681160371595509762,
+            // parent: 681160371595509762,
             permissionOverwrites: permissionOverwritesVoice
         })
     }
