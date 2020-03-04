@@ -2,8 +2,18 @@ module.exports = {
     "name": "mkgrp",
     "description": "С помощью этой команды можно создать приватную/публичную группу с текстовым и голосвым каналами.",
     async exec(msg, args, client) {
-        const sqlite3 = require('sqlite3').verbose()
-        var db = new sqlite3.Database('data.db')
+        const db = require('better-sqlite3')('data.db', { verbose: console.log })
+
+        var grpWasCreated = false
+        var rows = db.prepare('select * from gropowners').all()
+
+        for (let i = 0; i < rows.length; i++) {
+            if (rows[i].ownersid == msg.author.id) {
+                console.log("Error: grop was already created by the user")
+                msg.reply('ты уже создал группу!')
+                return 0
+            }
+        }
 
         // Text permissions base
         let permissionOverwritesText = [
@@ -30,11 +40,11 @@ module.exports = {
         var textid = await msg.guild.createChannel(name, {
             userLimit: 5,
             type: "text",
-            // parent: 681160371595509762,
+            parent: "681160371595509762",
             permissionOverwrites: permissionOverwritesText
         })
             .then((channel) => {
-                channel.send("все, охапка дров, канал готов.")
+                //channel.send("все, охапка дров, канал готов.")
                 return channel.id
             })
             .catch((e) => {
@@ -57,7 +67,7 @@ module.exports = {
         msg.mentions.users.array().forEach(u => {
             permissionOverwritesVoice.push({
                 id: u.id,
-                allow: ['VIEW_CHANNEL', 'SPEAK', 'CONNECT']
+                allow: ['VIEW_CHANNEL', 'SPEAK', 'CONNECT'],
             })
         });
 
@@ -65,13 +75,14 @@ module.exports = {
         var voiceid = await msg.guild.createChannel(name, {
             userLimit: 5,
             type: "voice",
-            // parent: 681160371595509762,
+            parent: "681160371595509762",
             permissionOverwrites: permissionOverwritesVoice
         }).then(channel => {
             return channel.id
         })
 
-        db.run(`insert into gropowners (ownersid, textid, voiceid)
-                values (${msg.author.id}, ${textid}, ${voiceid})`)
+        db.prepare(`insert into gropowners(ownersid, textid, voiceid) 
+                    values (${msg.author.id},${textid},${voiceid});`).run()
+
     }
-}
+} 
