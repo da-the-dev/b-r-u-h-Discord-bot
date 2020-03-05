@@ -9,11 +9,16 @@
 	"author": "da_dev",
 	"license": "ISC",
 	"dependencies": {
-		"better-sqlite3": "^6.0.1",
+		"@discordjs/uws": "^10.149.0",
+		"@keyv/mysql": "^1.1.4",
 		"discord.js": "^11.5.1",
-		"dotenv": "^8.2.0"
+		"dotenv": "^8.2.0",
+		"keyv": "^4.0.0"
 	},
 	"devDependencies": {
 		"@types/sqlite3": "^3.1.6"
+	},
+	"repository": {
+		"url": "https://github.com/da-the-dev/b-r-u-h-Discord-bot.git"
 	}
 }

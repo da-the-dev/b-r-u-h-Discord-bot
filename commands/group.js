@@ -2,17 +2,16 @@ module.exports = {
     "name": "mkgrp",
     "description": "С помощью этой команды можно создать приватную/публичную группу с текстовым и голосвым каналами.",
     async exec(msg, args, client) {
-        const db = require('better-sqlite3')('data.db', { verbose: console.log })
+        const keyv = require('keyv')
 
-        var grpWasCreated = false
-        var rows = db.prepare('select * from gropowners').all()
+        const db = new keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_USER}`)
+        db.on('error', err => {
+            console.log('Connection error:', err)
+        })
 
-        for (let i = 0; i < rows.length; i++) {
-            if (rows[i].ownersid == msg.author.id) {
-                console.log("Error: grop was already created by the user")
-                msg.reply('ты уже создал группу!')
-                return 0
-            }
+        if (await db.get(msg.author.id)) {
+            await msg.reply("ты уже создал группу!")
+            return 0
         }
 
         // Text permissions base
@@ -81,8 +80,9 @@ module.exports = {
             return channel.id
         })
 
-        db.prepare(`insert into gropowners(ownersid, textid, voiceid) 
-                    values (${msg.author.id},${textid},${voiceid});`).run()
-
+        await db.set(msg.author.id, {
+            textid: textid,
+            voiceid: voiceid
+        })
     }
 } 
