@@ -42,4 +42,4 @@ Not yet. I removed the link for the sake of avoiding confusion. Since I want to 
 
 #### Can I use your code?
 
-You can freely use any code I wrote.
+You can freely use any code.
