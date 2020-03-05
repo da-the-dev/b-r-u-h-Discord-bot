@@ -8,22 +8,29 @@
 
 #### What is this thing?
 
-Simple question, really. It's one of my many bots for Discord bots that I created for fun/educational purpose. So, I don't think that would [~~use this link~~](google.com) to add the bot to your server (you need to have admin rights on the server).
+Simple question, really. It's one of my many bots for Discord that I created for fun/educational purposes. It can analyze different commands entered by users on a Discord server. Down below you will see them and how to use them. It is the first project I take seriously and I plan to work hard on it. <br>
+The current goal of this bot is for me to learn to code, share my code with the Internet and hopefully turn this project into something great.
 
 #### What can it do?
 
-I does some things. Here are some commands:
+It does some things. These are some of the commands I've implemented:
 
--   `!test` will reply a message if the bot is online
--   `!ping` will reply a message with the ping of the bot
--   `!help` will reply a message in DM with all of the commands
--   `!mkgrp {name} {@users[]}` will create a grop of 1 voice and text channels with names `{name}` and give rights to see and iteract with these channels to the author of the message and people he/she mentioned in `{@users[]}` <br>
+-   `!test` will reply a message if the bot is online.
+-   `!ping` will reply a message with the ping of the bot.
+-   `!help` will reply a message in DM with all of the commands.
+-   `!mkgrp {name} {@users[]}` will create a grop of a voice and a text channel with names `{name}` and give rights to see and iteract with these channels to the author of the message and the people mentioned in `{@users[]}`. <br>
     > Example:
     >
     > ```
     > !mkgrp coolgang @bro @bruh @supercooldaniel
     > ```
+    >
+    > This will create a voice channel 'coolgang' and a text channel 'coolgang' and allow only you, user @bro, user @bruh and user @supercooldaniel to use them.
 -   `!delete` will delete the created group.
+
+#### OK, the commands are nice, how do I use them?
+
+Just enter the command in chat.
 
 #### Does it work 24/7?
 
@@ -31,4 +38,8 @@ Yes, I'm hosting the bot on Heroku 24/7
 
 #### Can I use this bot?
 
-Not yet. You can add it for later, but right now I wouldn't. I'm working on it, and hopefully one day b r u h Discord bot would be popular. You still can freely use any code I wrote.
+Not yet. I removed the link for the sake of avoiding confusion. Since I want to add language support, I will have to create a settings menu and store the configurations for each server. This is a big task I'll need to work on I'm working on the bot, and hopefully, one day b r u h Discord bot would be popular.
+
+#### Can I use your code?
+
+You still can freely use any code I wrote.
