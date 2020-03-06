@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 module.exports = {
-    "name": "!help", //Added extra ! to not yet give access to incomple '!mkgrp'
+    "name": "help",
     "description": "Присылает в личные сообщения информацию о всех командах.",
     exec(msg, args, client) {
         embed = new Discord.RichEmbed()

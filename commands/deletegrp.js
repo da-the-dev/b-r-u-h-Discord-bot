@@ -14,7 +14,7 @@ module.exports = {
         if (info) {
             await msg.guild.channels.get(info.textid).delete('Group deletion.')
                 .then(channel => {
-                    console.log("bot: User", msg.author.username, "deleted the TEXT channel of the group:", channel.id)
+                    console.log("bot: User", msg.author.username, "DELETED the TEXT channel of the group:", channel.id)
                 })
                 .catch(e => {
                     console.log(e)
@@ -22,7 +22,7 @@ module.exports = {
                 })
             await msg.guild.channels.get(info.voiceid).delete('Group deletion')
                 .then(channel => {
-                    console.log("bot: User", msg.author.username, "deleted the VOICE channel of the group:", channel.id)
+                    console.log("bot: User", msg.author.username, "has DELETED the VOICE channel of the group:", channel.id)
                 })
                 .catch(e => {
                     console.log(e)

@@ -45,7 +45,7 @@ module.exports = {
             permissionOverwrites: permissionOverwritesText
         })
             .then((channel) => {
-                //channel.send("все, охапка дров, канал готов.")
+                console.log(`bot: User '${msg.author.username}' has CREATED the TEXT channel: ${channel.id}`)
                 return channel.id
             })
             .catch((e) => {
@@ -81,6 +81,7 @@ module.exports = {
             permissionOverwrites: permissionOverwritesVoice
         })
             .then(channel => {
+                console.log(`bot: User '${msg.author.username}' has CREATED the VOICE channel: ${channel.id}`)
                 return channel.id
             })
             .catch(e => {
