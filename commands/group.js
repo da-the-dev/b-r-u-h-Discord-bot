@@ -4,9 +4,11 @@ module.exports = {
     async exec(msg, args, client) {
         const keyv = require('keyv')
 
-        const db = new keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_USER}`)
+        var db = new keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_DATABASE}`)
+
         db.on('error', err => {
-            console.log('Connection error:', err)
+            console.log('database: Connection error:', err)
+            return 0
         })
 
         if (await db.get(msg.author.id)) {
@@ -48,6 +50,7 @@ module.exports = {
             })
             .catch((e) => {
                 console.log(e)
+                return 0
             })
 
         // Voice permissions base
@@ -76,9 +79,14 @@ module.exports = {
             type: "voice",
             parent: "681160371595509762",
             permissionOverwrites: permissionOverwritesVoice
-        }).then(channel => {
-            return channel.id
         })
+            .then(channel => {
+                return channel.id
+            })
+            .catch(e => {
+                console.log(e)
+                return 0
+            })
 
         await db.set(msg.author.id, {
             textid: textid,
