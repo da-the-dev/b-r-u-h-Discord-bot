@@ -92,5 +92,7 @@ module.exports = {
             textid: textid,
             voiceid: voiceid
         })
+
+        msg.reply(`создана группа: ${name}!`)
     }
 } 

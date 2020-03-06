@@ -16,11 +16,21 @@ module.exports = {
                 .then(channel => {
                     console.log("bot: User", msg.author.username, "deleted the TEXT channel of the group:", channel.id)
                 })
+                .catch(e => {
+                    console.log(e)
+                    return 0
+                })
             await msg.guild.channels.get(info.voiceid).delete('Group deletion')
                 .then(channel => {
                     console.log("bot: User", msg.author.username, "deleted the VOICE channel of the group:", channel.id)
                 })
+                .catch(e => {
+                    console.log(e)
+                    return 0
+                })
         }
         await db.delete(msg.author.id)
+
+        msg.reply('группа успешно удалена!')
     }
 }
