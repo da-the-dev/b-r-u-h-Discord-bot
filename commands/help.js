@@ -7,7 +7,8 @@ module.exports = {
             .setTitle("Список команд")
             .setColor("#ff4040")
         client.commands.forEach(c => {
-            embed.addField(`**!${c.name}**`, c.description)
+            if (c.name != 'cleardb' || c.name != 'createdb')
+                embed.addField(`**!${c.name}**`, c.description)
         })
         msg.author.send(embed)
     }
