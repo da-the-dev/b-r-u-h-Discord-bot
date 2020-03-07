@@ -11,6 +11,8 @@ module.exports = {
             return 0
         })
 
+        db.close
+
         if (await db.get(msg.author.id)) {
             await msg.reply("ты уже создал группу!")
             return 0
