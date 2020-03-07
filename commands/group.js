@@ -77,7 +77,7 @@ module.exports = {
 
         // Create this voice channel
         var voiceid = await msg.guild.createChannel(name, {
-            userLimit: 5,
+            userLimit: msg.mentions.users.array.length + 1,
             type: "voice",
             parent: "685748399173271553",
             permissionOverwrites: permissionOverwritesVoice
