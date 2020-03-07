@@ -14,7 +14,8 @@
 		"discord.js": "^11.5.1",
 		"dotenv": "^8.2.0",
 		"keyv": "^4.0.0",
-		"lodash": ">=4.17.12"
+		"lodash": ">=4.17.12",
+		"steamapi": "^2.0.7"
 	},
 	"devDependencies": {
 		"@types/sqlite3": "^3.1.6",
