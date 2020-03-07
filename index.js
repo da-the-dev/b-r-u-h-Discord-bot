@@ -6,7 +6,7 @@ require('dotenv').config()
 const token = process.env.TOKEN
 
 client.commands = new Array
-fs.readdirSync(`${process.cwd()}/commands`).filter(f => f.endsWith('.js')).forEach(f => {
+fs.readdirSync(`${process.cwd()}/commands`).filter(f => !f.startsWith('_') && f.endsWith('.js')).forEach(f => {
     var command = require(`${process.cwd()}/commands/${f}`)
     client.commands.push(command)
 })
