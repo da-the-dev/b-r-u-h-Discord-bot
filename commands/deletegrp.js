@@ -4,7 +4,8 @@ module.exports = {
     async exec(msg, args, client) {
         const keyv = require('keyv')
 
-        const db = new keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_DATABASE}`)
+        var db = new keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_DATABASE}`)
+
         db.on('error', err => {
             console.log('database: Connection error:', err)
             return 0
