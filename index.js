@@ -27,7 +27,7 @@ client.on('message', async msg => {
     if (msg.content.startsWith('dev:') && msg.author.id == "315339158912761856") {
         client._commands.forEach(c => {
             if (c.name == msg.content.substring(4)) {
-                c.exec([msg, args, client])
+                c.exec(msg, args, client)
                 msg.delete()
             }
         })
