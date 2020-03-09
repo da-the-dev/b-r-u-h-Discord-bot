@@ -11,9 +11,12 @@ module.exports = {
             return 0
         })
 
-        var info = await db.get(msg.author.id)
-        if (info) {
-            await msg.guild.channels.get(info.textid).delete('Group deletion.')
+        //Getting guild info
+        var guild = await db.get(msg.guild.id)
+
+        // Deleting the channels if exists
+        if (guild[msg.author.id]) {
+            await msg.guild.channels.get(guild[msg.author.id].textid).delete('Group deletion.')
                 .then(channel => {
                     console.log("bot: User", msg.author.username, "DELETED the TEXT channel of the group:", channel.id)
                 })
@@ -21,7 +24,7 @@ module.exports = {
                     console.log(e)
                     return 0
                 })
-            await msg.guild.channels.get(info.voiceid).delete('Group deletion')
+            await msg.guild.channels.get(guild[msg.author.id].voiceid).delete('Group deletion')
                 .then(channel => {
                     console.log("bot: User", msg.author.username, "has DELETED the VOICE channel of the group:", channel.id)
                 })
@@ -29,9 +32,9 @@ module.exports = {
                     console.log(e)
                     return 0
                 })
+            msg.reply('группа успешно удалена!')
+        } else {
+            msg.reply('у тебя нет группы!')
         }
-        await db.delete(msg.author.id)
-
-        msg.reply('группа успешно удалена!')
     }
 }

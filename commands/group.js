@@ -2,18 +2,23 @@ module.exports = {
     "name": "mkgrp",
     "description": "С помощью этой команды можно создать приватную/публичную группу с текстовым и голосвым каналами.",
     async exec(msg, args, client) {
+        //Getting access to the database
+        global.error = false
         const keyv = require('keyv')
-
         var db = new keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_DATABASE}`)
-
         db.on('error', err => {
             console.log('database: Connection error:', err)
-            return 0
+            msg.reply("проблемы с подключением, попробуйте через 10-20 сек.")
+            global.error = true
         })
 
-        db.close
+        if (global.error) {
+            return 0
+        }
 
-        if (await db.get(msg.author.id)) {
+        //Get the guild info
+        var guild = await db.get(msg.guild.id)
+        if (guild[msg.author.id]) {
             await msg.reply("ты уже создал группу!")
             return 0
         }
@@ -91,10 +96,12 @@ module.exports = {
                 return 0
             })
 
-        await db.set(msg.author.id, {
-            textid: textid,
-            voiceid: voiceid
-        })
+        //Setting the guild info with addition of new group owner
+        guild[msg.author.id] = {
+            'textid': textid,
+            'voiceid': voiceid
+        }
+        await db.set(msg.guild.id, guild)
 
         msg.reply(`создана группа: ${name}!`)
     }
