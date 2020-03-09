@@ -11,10 +11,10 @@ module.exports = {
             return 0
         })
 
-        db.close
+        var guild = await db.get(msg.guild.id)
 
-        if (await db.get(msg.author.id)) {
-            await msg.reply("ты уже создал группу!")
+        if (guild[msg.author.id]) {
+            msg.reply('ты уже создал группу!')
             return 0
         }
 
@@ -91,10 +91,12 @@ module.exports = {
                 return 0
             })
 
-        await db.set(msg.author.id, {
-            textid: textid,
-            voiceid: voiceid
-        })
+        guild[msg.author.id] = {
+            'textid': textid,
+            'voiceid': voiceid
+        }
+
+        await db.set(msg.guild.id, guild)
 
         msg.reply(`создана группа: ${name}!`)
     }
