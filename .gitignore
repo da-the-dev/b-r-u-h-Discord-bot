@@ -1,4 +1,7 @@
+#Node stuff, Visual Studio stuff and .env private vars
 /node_modules
 /.vscode
 .env
+
+# Extra stuff
 idea.json
