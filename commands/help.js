@@ -19,7 +19,9 @@ module.exports = {
 
         // Sorting commands array and adding name and description to the field in embed
         client.commands.sort(sortFunc).forEach(c => {
-            embed.addField(`**!${c.name}**`, c.description)
+            if (c.name != 'sign') {
+                embed.addField(`**!${c.name}**`, c.description)
+            }
         });
 
         msg.author.send(embed)
