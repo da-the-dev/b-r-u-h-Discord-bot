@@ -5,12 +5,14 @@ require('dotenv').config()
 
 const token = process.env.TOKEN
 
+// Regular command parsing
 client.commands = new Array
 fs.readdirSync(`${process.cwd()}/commands`).filter(f => !f.startsWith('_') && f.endsWith('.js')).forEach(f => {
     var command = require(`${process.cwd()}/commands/${f}`)
     client.commands.push(command)
 })
 
+// Dev command parsing
 client._commands = new Array
 fs.readdirSync(`${process.cwd()}/commands`).filter(f => f.startsWith('_') && f.endsWith('.js')).forEach(c => {
     client._commands.push(require(`${process.cwd()}/commands/${c}`))
@@ -36,10 +38,9 @@ client.on('message', async msg => {
     if (msg.content[0] === '!' && !msg.author.bot) {
         var args = msg.content.trim().slice(1).split(' ')
         var command = args.shift()
-
         client.commands.forEach(c => {
             if (c.name == command) {
-                c.exec(msg, args, client)
+                c.exec([msg, args, client])
             }
         })
     }
