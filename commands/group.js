@@ -42,7 +42,6 @@ module.exports = {
 
         // Create this text channel
         var textid = await msg.guild.createChannel(name, {
-            userLimit: 5,
             type: "text",
             parent: "685748399173271553",
             permissionOverwrites: permissionOverwritesText
@@ -78,7 +77,7 @@ module.exports = {
 
         // Create this voice channel
         var voiceid = await msg.guild.createChannel(name, {
-            userLimit: msg.mentions.users.array.length + 1,
+            userLimit: msg.mentions.users.array.length + 2,
             type: "voice",
             parent: "685748399173271553",
             permissionOverwrites: permissionOverwritesVoice

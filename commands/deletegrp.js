@@ -1,8 +1,8 @@
 module.exports = {
     "name": "delgrp",
     "description": "Удаляет команды созданные 'mkgrp'.",
-    async exec(msg, args, client) {
-
+    async exec(input) {
+        msg = input[0]
         global.db.on('error', err => {
             console.log('database: Connection error:', err)
             return 0
