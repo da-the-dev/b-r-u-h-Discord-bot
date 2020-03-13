@@ -36,6 +36,7 @@ client.on('message', async msg => {
             }
         })
     }
+
     //Regular commands
     if (msg.content[0] === '!' && !msg.author.bot) {
         var args = msg.content.trim().slice(1).split(' ')
