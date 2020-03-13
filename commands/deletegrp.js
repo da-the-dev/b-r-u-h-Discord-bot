@@ -1,6 +1,6 @@
 module.exports = {
     "name": "delgrp",
-    "description": "Удаляет команды созданные 'mkgrp'.",
+    "description": "Удаляет группы, созданные 'mkgrp'.",
     async exec(input) {
         msg = input[0]
         global.db.on('error', err => {
@@ -32,7 +32,5 @@ module.exports = {
 
             msg.reply('группа успешно удалена!')
         }
-
-
     }
 }
