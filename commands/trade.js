@@ -3,7 +3,7 @@ module.exports = {
     "description": "Для начала трейда, упомините партнера так: `!trade @partner`, где `@partner` ⏤ пользователь, с кем тогруетесь. Важно чтобы тот написал свою ссылку на трейд в трейд-канале.",
     async exec(input) {
         global.msg = input[0]
-        msg.guild.channels.get('688106136804786251').fetchMessages()
+        msg.guild.channels.get('657862996403683328').fetchMessages()
             .then(async messages => {
                 const open = require('open')
 
