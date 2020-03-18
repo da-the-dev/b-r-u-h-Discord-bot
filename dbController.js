@@ -1,36 +1,52 @@
 const Discord = require('discord.js')
 module.exports = class DB {
-    constructor() {
-        this.keyv = require('keyv')
-        this.db = new this.keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_DATABASE}`)
-    }
+    static keyv = require('keyv')
+    static db = new DB.keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_DATABASE}`)
     /**
-     * @description Returns the current guild.
+     * @description Returns the current guild data.
      * @param {Discord.Message} msg Message to get current guild's id.
      */
     static async getGuild(msg) {
-        return await this.db.get(msg.guild.id)
+        return await DB.db.get(msg.guild.id)
     }
 
     /**
-     * @description Adds data into current guild.
+     * @description Adds data into current guild data.
      * @param {Discord.Message} msg Message to get current guild's id.
      * @param {string} field In which field to add data.
      * @param {object} data Data to add.
      */
     static async addToGuild(msg, field, data) {
-        let guild = await this.getGuild(msg)
+        let guild = await DB.getGuild(msg)
 
         guild[field] = data
 
-        await this.db.set(msg.guild.id, guild)
+        await DB.db.set(msg.guild.id, guild)
     }
 
     /**
-     * @description Reset the guild.
+     * @description Remove a field from guild data.
+     * @param {Discord.Message} msg Message to get current guild's id.
+     * @param {string} field Field to delete from the guild data.
+     */
+    static async removeFromGuild(msg, field) {
+        let guild = await DB.getGuild(msg)
+        delete guild[field]
+        DB.db.set(msg.guild.id)
+    }
+
+    /**
+     * @description Reset the guild data.
      * @param {Discord.Message} msg Message to get current guild's id
      */
     static async initGuild(msg) {
-        await this.db.set(msg.guild.id, {})
+        await DB.db.set(msg.guild.id, {})
+    }
+
+    /**
+     * @description Clear the whole database completly
+     */
+    static async clearDB() {
+        await DB.db.clear()
     }
 }
