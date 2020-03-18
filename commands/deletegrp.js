@@ -1,10 +1,10 @@
-const DB = require('../dbController.js')
+const DbController = require('../dbController.js')
 module.exports = {
     "name": "delgrp",
     "description": "Удаляет группы, созданные 'mkgrp'.",
     async exec(msg, args, client) {
-        var guild = await DB.getGuild(msg)
-        if (guild) {
+        var guild = await DbController.getGuild(msg)
+        if (guild[msg.author.id]) {
             await msg.guild.channels.get(guild[msg.author.id].textid).delete('Group deletion.')
                 .then(channel => {
                     console.log("bot: User", msg.author.username, "DELETED the TEXT channel of the group:", channel.id)
@@ -22,9 +22,11 @@ module.exports = {
                     return 0
                 })
 
-            await DB.removeFromGuild(msg, msg.author.id)
+            await DbController.removeFromGuild(msg, msg.author.id)
 
             msg.reply('группа успешно удалена!')
+        } else {
+            msg.reply('у тебя нет созданной группы!')
         }
     }
 }
