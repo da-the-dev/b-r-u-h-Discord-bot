@@ -1,5 +1,6 @@
 module.exports = {
     "name": "getguild",
+
     async exec(msg, args, client) {
         db.on('error', err => {
             console.log('database: Connection error:', err)

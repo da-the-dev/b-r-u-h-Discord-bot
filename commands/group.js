@@ -1,10 +1,7 @@
 module.exports = {
     "name": "mkgrp",
     "description": "С помощью этой команды можно создать приватную/публичную группу с текстовым и голосвым каналами.",
-    async exec(input) {
-        var msg = input[0]
-        var args = input[1]
-
+    async exec(msg, args, client) {
         global.db.on('error', err => {
             console.log('database: Connection error:', err)
             return 0

@@ -1,6 +1,6 @@
 module.exports = {
     "name": "cleardb",
-    exec(input) {
+    exec(msg, args, client) {
         console.log('dev: CLEARING DB...')
         global.db.clear()
             .then(() => {
