@@ -11,6 +11,17 @@ module.exports = class DB {
     }
 
     /**
+     * @description Get a specific field from the guild data
+     * @param {Discord.Message} msg Message to get current guild's id.
+     * @param {any} field Field to return
+     */
+    static async getGuildField(msg, field) {
+        var guild = await DB.getGuild(msg)
+        return guild[field]
+    }
+
+
+    /**
      * @description Adds data into current guild data.
      * @param {Discord.Message} msg Message to get current guild's id.
      * @param {string} field In which field to add data.
