@@ -25,7 +25,9 @@ It does some things. These are some of the commands I've implemented:
     >
     > This will create a voice channel 'coolgang' and a text channel 'coolgang' and allow only you, user @bro, user @bruh and user @supercooldaniel to use them.
 -   `!delete` will delete the created group.
-
+-   `!sign` will set an *'owner'* of the bot on the server. This user aquires access to commands such ass `!setTrade`, etc.
+-   `!trade` requieres a channel to be selected with `setTrade` *(do `!sign` beforehand)*. This command lets users trade with each other. Just send a trade link in a trade channel and now you can be selected to trade by other users with `!trade @user`. This opens a browser tab with a trade. Links don't expire as long as the trade channel is valid. You can update your trade link by just sending a new one.
+-   `!setTrade` sets the channel to be used for trading between users. `!trade` can't be used without of it.
 #### OK, the commands are nice, how do I use them?
 
 Just enter the command in chat.
