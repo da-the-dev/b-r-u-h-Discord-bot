@@ -2,8 +2,6 @@ const Discord = require('discord.js')
 const fs = require('fs')
 var client = new Discord.Client()
 require('dotenv').config()
-const keyv = require('keyv')
-global.db = new keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_DATABASE}`)
 
 const token = process.env.TOKEN
 
@@ -43,7 +41,7 @@ client.on('message', async msg => {
         var command = args.shift()
         client.commands.forEach(c => {
             if (c.name == command) {
-                c.exec([msg, args, client])
+                c.exec(msg, args, client)
             }
         })
     }
