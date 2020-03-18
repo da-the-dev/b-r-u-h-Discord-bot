@@ -1,13 +1,9 @@
+const DB = require('../dbController.js')
 module.exports = {
     "name": "delgrp",
     "description": "Удаляет группы, созданные 'mkgrp'.",
     async exec(msg, args, client) {
-        global.db.on('error', err => {
-            console.log('database: Connection error:', err)
-            return 0
-        })
-
-        var guild = await global.db.get(msg.guild.id)
+        var guild = await DB.getGuild(msg)
         if (guild) {
             await msg.guild.channels.get(guild[msg.author.id].textid).delete('Group deletion.')
                 .then(channel => {
@@ -26,8 +22,7 @@ module.exports = {
                     return 0
                 })
 
-            delete guild[msg.author.id]
-            await global.db.set(msg.guild.id, guild)
+            await DB.removeFromGuild(msg, msg.author.id)
 
             msg.reply('группа успешно удалена!')
         }

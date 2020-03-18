@@ -1,13 +1,9 @@
+const DB = require('../dbController.js')
 module.exports = {
     "name": "mkgrp",
     "description": "С помощью этой команды можно создать приватную/публичную группу с текстовым и голосвым каналами.",
     async exec(msg, args, client) {
-        global.db.on('error', err => {
-            console.log('database: Connection error:', err)
-            return 0
-        })
-
-        var guild = await global.db.get(msg.guild.id)
+        var guild = await DB.getGuild(msg)
             .catch(e => {
                 console.log(e)
             })
@@ -88,12 +84,10 @@ module.exports = {
                 return 0
             })
 
-        guild[msg.author.id] = {
+        await DB.addToGuild(msg, msg.author.id, {
             'textid': textid,
             'voiceid': voiceid
-        }
-
-        await global.db.set(msg.guild.id, guild)
+        })
 
         msg.reply(`создана группа: ${name}!`)
     }

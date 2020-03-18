@@ -1,23 +1,15 @@
-/* 
- * WORK IN PROGRESS
- * 
-*/
+const DB = require('../dbController.js')
 module.exports = {
     'name': 'sign',
     async exec(msg, args, client) {
-        global.db.on('error', err => {
-            console.log('database: Connection error:', err)
-            return 0
-        })
-
-        var guild = await global.db.get(msg.guild.id)
+        var guild = DB.getGuild(msg)
         if (!guild.owner) {
             guild.owner = msg.author.id
         } else {
             msg.author.send(`Хозяин бота на сервере \`${msg.guild.name}\` уже назначен!`)
             return 0
         }
-        await global.db.set(msg.guild.id, guild)
+        await DB.addToGuild(msg, 'owner', msg.author.id)
 
         msg.author.send(`Вы назначены хозяином бота на сервере \`${msg.guild.name}!\``)
     }
