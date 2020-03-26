@@ -18,8 +18,8 @@ module.exports = {
         global.msg = msg
         var embed = new Discord.RichEmbed() //Creating an embed message with the settings menu
             .setTitle('Настройки')
-            .addField('Установить канал для трейда', ".")
-            .addField()
+            .addField('**A**', "Установить канал для трейда.")
+            .addField('**B**', "Установить категорию, в которой создавать группы пользователей.")
             .setColor(hex_colors.Red)
 
         global.msg.reply(embed) //Replying with the settings menu
