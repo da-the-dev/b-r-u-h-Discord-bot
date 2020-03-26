@@ -2,7 +2,7 @@
 
 > #### QUICK WARNINGS
 >
-> 1. THIS BOT REPLIES IN RUSSIAN. ENGLISH SUPPORT WILL ARRIVE IN APPROXIMATELY A MONTH
+> 1. THIS BOT REPLIES IN RUSSIAN. ENGLISH SUPPORT WILL SOON.
 
 #### What is this thing?
 
@@ -24,10 +24,11 @@ It does some things. These are some of the commands I've implemented:
     > ```
     >
     > This will create a voice channel 'coolgang' and a text channel 'coolgang' and allow only you, user @bro, user @bruh and user @supercooldaniel to use them.
--   `!delete` will delete the created group.
--   `!sign` will set an *'owner'* of the bot on the server. This user aquires access to commands such ass `!setTrade`, etc.
--   `!trade` requieres a channel to be selected with `setTrade` *(do `!sign` beforehand)*. This command lets users trade with each other. Just send a trade link in a trade channel and now you can be selected to trade by other users with `!trade @user`. This opens a browser tab with a trade. Links don't expire as long as the trade channel is valid. You can update your trade link by just sending a new one.
--   `!setTrade` sets the channel to be used for trading between users. `!trade` can't be used without of it.
+-   `!delgrp` will delete the created group.
+-   `!sign` will set an _'owner'_ of the bot on the server. This user aquires access to commands such as `!settings`, etc.
+-   `!trade` requieres a channel to be selected with `!settings` _(do `!sign` beforehand _(owners only)_)_ . This command lets users trade with each other. Just send a trade link in a trade channel and now you can be selected to trade by other users with `!trade @user`. This opens a browser tab with a trade. Links don't expire as long as the trade channel is valid. You can update your trade link by just sending a new one.
+-   `!settings` ⏤ the ultimate command only given to owners. It is in work right now, but you already can do some stuff with it. Bot replies with a cool-looking message and reactions to it. Pick one option are react with appropriate letter. The bot will execute your command. No one can interfere while you are changing the settings.
+
 #### OK, the commands are nice, how do I use them?
 
 Just enter the command in chat.
@@ -38,7 +39,7 @@ Yes, I'm hosting the bot on Heroku 24/7
 
 #### Can I use this bot?
 
-Not yet. I removed the link for the sake of avoiding confusion. Since I want to add language support, I will have to create a settings menu and store the configurations for each server. This is a big task I'll need to work on I'm working on the bot, and hopefully, one day b r u h Discord bot would be popular.
+Not yet. I removed the link for a while. Multiple language support is a tricky thing to do and it takes some time and thinking. It's a big task that might I hope that one day b r u h Discord bot would be popular.
 
 #### Can I use your code?
 
