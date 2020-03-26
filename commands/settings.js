@@ -1,5 +1,5 @@
 const DB = require('../dbController.js')
-const emojies = require('emojies')
+const emojies = require('@da_dev/emojies')
 const Discord = require('discord.js')
 const hex_colors = require('hex_colors')
 module.exports = {
