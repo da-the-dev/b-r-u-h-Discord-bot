@@ -3,6 +3,7 @@ module.exports = {
     "name": "mkgrp",
     "description": "С помощью этой команды можно создать приватную/публичную группу с текстовым и голосвым каналами.",
     async exec(msg, args, client) {
+        var parent = await DB.getGuildField(msg, 'groupCategory')
         var guild = await DB.getGuild(msg)
             .catch(e => {
                 console.log(e)
@@ -36,7 +37,7 @@ module.exports = {
         // Create this text channel
         var textid = await msg.guild.createChannel(name, {
             type: "text",
-            parent: "685748399173271553",
+            parent: parent,
             permissionOverwrites: permissionOverwritesText
         })
             .then((channel) => {
@@ -72,7 +73,7 @@ module.exports = {
         var voiceid = await msg.guild.createChannel(name, {
             userLimit: msg.mentions.users.array.length + 2,
             type: "voice",
-            parent: "685748399173271553",
+            parent: parent,
             permissionOverwrites: permissionOverwritesVoice
         })
             .then(channel => {
