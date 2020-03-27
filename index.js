@@ -2,8 +2,8 @@ const Discord = require('discord.js')
 const fs = require('fs')
 var client = new Discord.Client()
 require('dotenv').config()
-
 const token = process.env.TOKEN
+const DB = require('./dbController.js')
 
 // Regular command parsing
 client.commands = new Array
@@ -25,6 +25,11 @@ client.on('ready', () => {
 })
 
 client.on('message', async msg => {
+    var prefix = await DB.getGuildField(msg, 'prefix')
+        .catch(e => {
+            console.log("NO PREFIX FOUND")
+        })
+
     //Developer commands
     if (msg.content.startsWith('dev:') && msg.author.id == "315339158912761856") {
         client._commands.forEach(c => {
@@ -36,7 +41,7 @@ client.on('message', async msg => {
     }
 
     //Regular commands
-    if (msg.content[0] === '!' && !msg.author.bot) {
+    if (msg.content[0] == prefix && !msg.author.bot) {
         var args = msg.content.trim().slice(1).split(' ')
         var command = args.shift()
         client.commands.forEach(c => {
