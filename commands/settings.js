@@ -20,12 +20,14 @@ module.exports = {
             .setTitle('Настройки')
             .addField('**A**', "Установить канал для трейда.")
             .addField('**B**', "Установить категорию, в которой создавать группы пользователей.")
+            .addField('**С**', "Установить новый префикс.")
             .setColor(hex_colors.Red)
 
         global.msg.reply(embed) //Replying with the settings menu
             .then(async message => {
                 await message.react(emojies.a) //Reacting with all of the options from the settings menu
                 await message.react(emojies.b)
+                await message.react(emojies.c)
 
                 message.awaitReactions((reaction, user) => user.id == global.msg.author.id, { maxEmojis: 1 }) //Collecting the reactioN from the owner
                     .then(reactions => {
@@ -42,15 +44,27 @@ module.exports = {
                                     })
                                 break;
                             case emojies.b:
-                                msg.reply('отправьте мне id категории для групп.') //Responding with request to send the id of the trade channel
+                                msg.reply('отправьте мне id категории для групп.') //Responding with request to send the id of the сategory
                                     .then(setting => {
                                         setting.channel.awaitMessages(m => m.author.id == msg.author.id, { max: 1 }) //Collecting messagE in the channel
                                             .then(async messages => {
-                                                let msgg = messages.first() //Setting the 'tradeChannel' to the id in the owner's responce
+                                                let msgg = messages.first()
                                                 await DB.addToGuild(global.msg, 'groupCategory', msgg.content)
                                                 messages.first().reply(`успешно установил категорию для групп на \`${msgg.guild.channels.get(msgg.content).name}\`!`)
                                             })
                                     })
+                                break
+                            case emojies.c:
+                                msg.reply('отправьте мне новый префикс.') //Responding with request to send the new prefix
+                                    .then(setting => {
+                                        setting.channel.awaitMessages(m => m.author.id == msg.author.id, { max: 1 }) //Collecting messagE in the channel
+                                            .then(async messages => {
+                                                let msgg = messages.first()
+                                                await DB.addToGuild(global.msg, 'prefix', msgg.content)
+                                                messages.first().reply(`успешно установил новый префикс \`${msgg.content}\`!`)
+                                            })
+                                    })
+
                             default:
                                 break;
                         }
