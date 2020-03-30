@@ -25,23 +25,22 @@ client.on('ready', () => {
 })
 
 client.on('message', async msg => {
-    var prefix = await DB.getGuildField(msg, 'prefix')
-        .catch(e => {
-            console.log("NO PREFIX FOUND")
-        })
+    if (!client[msg.guild.id]) {
+        client[msg.guild.id] = await DB.getGuildField(msg, 'prefix')
+    }
+
 
     //Developer commands
     if (msg.content.startsWith('dev:') && msg.author.id == "315339158912761856") {
         client._commands.forEach(c => {
             if (c.name == msg.content.substring(4)) {
                 c.exec(msg, args, client)
-                msg.delete()
             }
         })
     }
 
     //Regular commands
-    if (msg.content[0] == prefix && !msg.author.bot) {
+    if (msg.content[0] == client[msg.guild.id] && !msg.author.bot) {
         var args = msg.content.trim().slice(1).split(' ')
         var command = args.shift()
         client.commands.forEach(c => {
