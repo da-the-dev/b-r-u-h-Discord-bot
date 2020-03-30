@@ -51,7 +51,7 @@ module.exports = class DB {
      * @param {Discord.Message} msg Message to get current guild's id
      */
     static async initGuild(msg) {
-        await DB.db.set(msg.guild.id, { prefix: "." })
+        await DB.db.set(msg.guild.id, { prefix: "~" })
     }
 
     /**
