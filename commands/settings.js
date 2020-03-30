@@ -30,41 +30,69 @@ module.exports = {
                 await message.react(emojies.c)
 
                 message.awaitReactions((reaction, user) => user.id == global.msg.author.id, { maxEmojis: 1 }) //Collecting the reactioN from the owner
-                    .then(reactions => {
+                    .then(async reactions => {
+                        const ownId = msg.author.id
                         switch (reactions.first().emoji.name) {
                             case emojies.a:
-                                msg.reply('отправьте мне id канала для трейда.') //Responding with request to send the id of the trade channel
-                                    .then(setting => {
-                                        setting.channel.awaitMessages(m => m.author.id == msg.author.id, { max: 1 }) //Collecting messagE in the channel
+                                msg.reply('отправь мне id кнала для трейда.')
+                                    .then(question => {
+                                        msg.channel.awaitMessages(msg => msg.author.id == ownId, { max: 1 })
                                             .then(async messages => {
-                                                let msgg = messages.first() //Setting the 'tradeChannel' to the id in the owner's responce
-                                                await DB.addToGuild(global.msg, 'tradeChannel', msgg.content)
-                                                messages.first().reply(`успешно установил канал для трейда на \`${msgg.guild.channels.get(msgg.content).name}\`!`)
+                                                let idMessage = messages.first()
+                                                await DB.addToGuild(msg, 'tradeChannel')
+                                                msg.reply(`успешно установил новый канал для трейда!`)
+                                                    .then(reply => {
+                                                        msg.delete(2000)
+                                                            .then(m => {
+                                                                message.delete()
+                                                                question.delete()
+                                                                messages.first().delete()
+                                                                reply.delete()
+                                                            })
+                                                    })
                                             })
                                     })
                                 break;
                             case emojies.b:
-                                msg.reply('отправьте мне id категории для групп.') //Responding with request to send the id of the сategory
-                                    .then(setting => {
-                                        setting.channel.awaitMessages(m => m.author.id == msg.author.id, { max: 1 }) //Collecting messagE in the channel
+                                msg.reply('отправь мне id категории для групп.')
+                                    .then(question => {
+                                        msg.channel.awaitMessages(msg => msg.author.id == ownId, { max: 1 })
                                             .then(async messages => {
-                                                let msgg = messages.first()
-                                                await DB.addToGuild(global.msg, 'groupCategory', msgg.content)
-                                                messages.first().reply(`успешно установил категорию для групп на \`${msgg.guild.channels.get(msgg.content).name}\`!`)
+                                                let idMessage = messages.first()
+                                                await DB.addToGuild(msg, 'groupCategory')
+                                                msg.reply(`успешно установил новую категорию для групп!`)
+                                                    .then(reply => {
+                                                        msg.delete(2000)
+                                                            .then(m => {
+                                                                message.delete()
+                                                                question.delete()
+                                                                messages.first().delete()
+                                                                reply.delete()
+                                                            })
+                                                    })
                                             })
                                     })
                                 break
                             case emojies.c:
-                                msg.reply('отправьте мне новый префикс.') //Responding with request to send the new prefix
-                                    .then(setting => {
-                                        setting.channel.awaitMessages(m => m.author.id == msg.author.id, { max: 1 }) //Collecting messagE in the channel
+                                msg.reply('отправь мне новый префикс.')
+                                    .then(question => {
+                                        msg.channel.awaitMessages(msg => msg.author.id == ownId, { max: 1 })
                                             .then(async messages => {
-                                                let msgg = messages.first()
-                                                await DB.addToGuild(global.msg, 'prefix', msgg.content)
-                                                messages.first().reply(`успешно установил новый префикс \`${msgg.content}\`!`)
+                                                let prefix = messages.first()
+                                                console.log(prefix.content)
+                                                await DB.addToGuild(msg, 'prefix', prefix.content)
+                                                msg.reply(`успешно установил новый префикс!`)
+                                                    .then(reply => {
+                                                        msg.delete(2000)
+                                                            .then(m => {
+                                                                message.delete()
+                                                                question.delete()
+                                                                messages.first().delete()
+                                                                reply.delete()
+                                                            })
+                                                    })
                                             })
                                     })
-
                             default:
                                 break;
                         }
