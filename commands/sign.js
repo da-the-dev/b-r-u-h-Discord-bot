@@ -1,6 +1,8 @@
 const DB = require('../dbController.js')
 module.exports = {
     'name': 'sign',
+    'description': '.',
+    'onlyOwner': false,
     async exec(msg, args, client) {
         let owner = await DB.getGuildField(msg, 'owner')
         console.log(owner)

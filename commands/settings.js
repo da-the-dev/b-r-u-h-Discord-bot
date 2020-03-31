@@ -4,7 +4,8 @@ const Discord = require('discord.js')
 const hex_colors = require('hex_colors')
 module.exports = {
     "name": "settings",
-    "description": "",
+    "description": ".",
+    "onlyOwner": true,
     /**
      * 
      * @param {Discord.Message} msg Main message

@@ -6,7 +6,8 @@ const Discord = require('discord.js')
 const DB = require('../dbController.js')
 module.exports = {
     "name": "tournament",
-    "description": "",
+    "description": ".",
+    "onlyOwner": true,
 
     shuffleArray(array) { // Technical stuff
         for (let i = array.length - 1; i > 0; i--) {

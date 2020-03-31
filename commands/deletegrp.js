@@ -2,6 +2,7 @@ const DbController = require('../dbController.js')
 module.exports = {
     "name": "delgrp",
     "description": "Удаляет группы, созданные 'mkgrp'.",
+    "onlyOwner": false,
     async exec(msg, args, client) {
         var guild = await DbController.getGuild(msg)
         if (guild[msg.author.id]) {

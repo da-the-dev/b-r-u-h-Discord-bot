@@ -2,6 +2,7 @@ const DB = require('../dbController.js')
 module.exports = {
     "name": "mkgrp",
     "description": "С помощью этой команды можно создать приватную/публичную группу с текстовым и голосвым каналами.",
+    "onlyOwner": false,
     async exec(msg, args, client) {
         var parent = await DB.getGuildField(msg, 'groupCategory')
         var guild = await DB.getGuild(msg)

@@ -24,6 +24,9 @@ client.on('ready', () => {
     console.log("Ready")
 })
 
+/** 
+ * @param {Discord.Message} msg
+*/
 client.on('message', async msg => {
     if (!client[msg.guild.id]) {
         client[msg.guild.id] = await DB.getGuildField(msg, 'prefix')

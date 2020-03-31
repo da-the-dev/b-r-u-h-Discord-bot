@@ -2,6 +2,7 @@ const DB = require('../dbController.js')
 module.exports = {
     "name": "trade",
     "description": "Для начала трейда, упомините партнера так: `!trade @partner`, где `@partner` ⏤ пользователь, с кем тогруетесь. Важно чтобы тот написал свою ссылку на трейд в трейд-канале.",
+    'onlyOwner': false,
     async exec(msg, args, client) {
         global.msg = msg
         msg.guild.channels.get(DB.getGuildField(msg, 'tradeChannel')).fetchMessages()
