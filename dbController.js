@@ -1,13 +1,13 @@
 const Discord = require('discord.js')
+const keyv = require('keyv')
+const db = new keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_DATABASE}`)
 module.exports = class DB {
-    static keyv = require('keyv')
-    static db = new DB.keyv(`mysql://${process.env.SQL_USER}:${process.env.SQL_SECRET}@${process.env.SQL_HOST}:3306/${process.env.SQL_DATABASE}`)
     /**
      * @description Returns the current guild data.
      * @param {Discord.Message} msg Message to get current guild's id.
      */
     static async getGuild(msg) {
-        return await DB.db.get(msg.guild.id)
+        return await db.get(msg.guild.id)
     }
 
     /**
@@ -32,18 +32,7 @@ module.exports = class DB {
 
         guild[field] = data
 
-        await DB.db.set(msg.guild.id, guild)
-    }
-
-    /**
-     * @description Remove a field from guild data.
-     * @param {Discord.Message} msg Message to get current guild's id.
-     * @param {string} field Field to delete from the guild data.
-     */
-    static async removeFromGuild(msg, field) {
-        let guild = await DB.getGuild(msg)
-        delete guild[field]
-        DB.db.set(msg.guild.id)
+        await db.set(msg.guild.id, guild)
     }
 
     /**
@@ -51,13 +40,13 @@ module.exports = class DB {
      * @param {Discord.Message} msg Message to get current guild's id
      */
     static async initGuild(msg) {
-        await DB.db.set(msg.guild.id, { prefix: "~" })
+        await db.set(msg.guild.id, { prefix: "~", repTable: {} })
     }
 
     /**
      * @description Clear the whole database completly
      */
     static async clearDB() {
-        await DB.db.clear()
+        await db.clear()
     }
 }
