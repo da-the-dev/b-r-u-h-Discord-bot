@@ -77,10 +77,10 @@ module.exports = {
                             case emojies.c:
                                 msg.reply('отправь мне новый префикс.')
                                     .then(question => {
-                                        msg.channel.awaitMessages(msg => msg.author.id == ownId, { max: 1 })
+                                        †                                        msg.channel.awaitMessages(response => response.author.id == msg.author.id, { maxMatches: 1 })
                                             .then(async messages => {
                                                 let prefix = messages.first()
-                                                console.log(prefix.content)
+
                                                 await DB.addToGuild(msg, 'prefix', prefix.content)
                                                 msg.reply(`успешно установил новый префикс!`)
                                                     .then(reply => {
